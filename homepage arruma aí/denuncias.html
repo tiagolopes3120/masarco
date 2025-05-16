@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualizar Denúncias - Arruma Aí</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <header class="header-secondary">
+    <h1>Denúncias Urbanas em Belo Horizonte</h1>
+    <p>Veja os problemas reportados e ajude a melhorar nossa cidade</p>
+      <header class="header-main">
+    <a href="nova-denuncia.html" class="btn-denunciar">Fazer Denúncia</a>
+    </header>
+  </header>
+
+  <section class="filtros">
+    <div class="search-box">
+      <input type="text" placeholder="Buscar por bairro..." id="pesquisaBairro" oninput="filtrarDenuncias()" />
+      <button onclick="filtrarDenuncias()">🔍</button>
+    </div>
+
+    <div class="categorias">
+      <button onclick="selecionarCategoria(event, 'todos')" class="ativo">Todos</button>
+      <button onclick="selecionarCategoria(event, 'buraco')">Buracos</button>
+      <button onclick="selecionarCategoria(event, 'vazamento')">Vazamento de Água</button>
+      <button onclick="selecionarCategoria(event, 'poste')">Postes com Defeito</button>
+      <button onclick="selecionarCategoria(event, 'outros')">Outros</button>
+    </div>
+  </section>
+
+  <section class="denuncias-recentes" id="listaDenuncias">
+  <h2>Denúncias Recentes</h2>
+  <div class="grid-denuncias">
+    <div class="denuncia-card" data-categoria="buraco" data-bairro="centro">
+      <img src="/buraco2.jpg" alt="Buraco na rua">
+      <div class="denuncia-info">
+        <h3>Buraco na Av. Afonso Pena</h3>
+        <p>Buraco perigoso próximo ao ponto de ônibus.</p>
+        <span class="tag categoria-buraco">Buraco</span>
+        <span class="tag bairro">Centro</span>
+      </div>
+    </div>
+
+    <div class="denuncia-card" data-categoria="vazamento" data-bairro="santo antonio">
+      <img src="/vazamento.webp" alt="Vazamento de água">
+      <div class="denuncia-info">
+        <h3>Vazamento na Rua Leopoldina</h3>
+        <p>Água jorrando há dias sem reparo pela Copasa.</p>
+        <span class="tag categoria-vazamento">Vazamento</span>
+        <span class="tag bairro">Santo Antônio</span>
+      </div>
+    </div>
+
+    <div class="denuncia-card" data-categoria="poste" data-bairro="pampulha">
+      <img src="/poste2.webp" alt="Poste apagado">
+      <div class="denuncia-info">
+        <h3>Poste Apagado na Pampulha</h3>
+        <p>Rua completamente escura. Risco de assaltos.</p>
+        <span class="tag categoria-poste">Poste</span>
+        <span class="tag bairro">Pampulha</span>
+      </div>
+    </div>
+
+    <div class="denuncia-card" data-categoria="outros" data-bairro="floresta">
+      <img src="/entulho.jpeg" alt="Entulho na calçada">
+      <div class="denuncia-info">
+        <h3>Entulho na Rua Jacuí</h3>
+        <p>Lixo acumulado atrapalhando o acesso de pedestres.</p>
+        <span class="tag categoria-outros">Outros</span>
+        <span class="tag bairro">Floresta</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <a href="index.html" class="btn-voltar">← Voltar para a Página Inicial</a>
+
+
+  <footer>
+    <p>&copy; 2025 Arruma Aí. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    let categoriaSelecionada = 'todos';
+
+    function selecionarCategoria(event, categoria) {
+      categoriaSelecionada = categoria;
+
+      // Atualiza visual dos botões
+      document.querySelectorAll(".categorias button").forEach(btn => btn.classList.remove("ativo"));
+      event.target.classList.add("ativo");
+
+      filtrarDenuncias();
+    }
+
+    function filtrarDenuncias() {
+      const termoPesquisa = document.getElementById("pesquisaBairro").value.toLowerCase().trim();
+      const cards = document.querySelectorAll(".denuncia-card");
+
+      cards.forEach(card => {
+        const categoria = card.getAttribute("data-categoria");
+        const bairro = card.getAttribute("data-bairro").toLowerCase();
+
+        const correspondeCategoria = (categoriaSelecionada === "todos" || categoria === categoriaSelecionada);
+        const correspondeBairro = bairro.includes(termoPesquisa);
+
+        if (correspondeCategoria && correspondeBairro) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Inicializa a lista com todos os cards visíveis
+    filtrarDenuncias();
+  </script>
+</body>
+</html>

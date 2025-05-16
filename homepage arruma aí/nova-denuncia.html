@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Denúncia - Arruma Aí</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="nova-denuncia-body">
+
+  <main class="form-container">
+    <h1>Faça sua denúncia 💬</h1>
+    <p class="descricao-form">Ajude a transformar a cidade de Belo Horizonte. Relate problemas urbanos para que possamos resolver juntos!</p>
+
+    <form class="denuncia-form">
+      <label for="titulo">Título da Denúncia</label>
+      <input type="text" id="titulo" placeholder="Ex: Buraco na rua X" required>
+
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" rows="4" placeholder="Explique com detalhes o problema..." required></textarea>
+
+      <label for="bairro">Bairro</label>
+      <input type="text" id="bairro" placeholder="Ex: Centro, Santa Efigênia" required>
+
+      <label for="categoria">Categoria</label>
+      <select id="categoria" required>
+        <option value="">Selecione</option>
+        <option value="buraco">Buraco</option>
+        <option value="vazamento">Vazamento de Água</option>
+        <option value="poste">Poste com Defeito</option>
+        <option value="outros">Outros</option>
+      </select>
+
+      <label for="foto">Foto do Problema</label>
+      <input type="file" id="foto" accept="image/*">
+
+      <button type="submit" class="btn-enviar">Enviar Denúncia</button>
+    </form>
+
+    <div class="mensagem-final">
+      📢 Sua voz importa! Denuncie e ajude a construir uma cidade mais segura, limpa e eficiente.
+    </div>
+
+    <div class="voltar">
+      <a href="index.html" class="btn-voltar">← Voltar para a página inicial</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Arruma Aí. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
