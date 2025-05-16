@@ -41,6 +41,8 @@
     <div class="mensagem-final">
       📢 Sua voz importa! Denuncie e ajude a construir uma cidade mais segura, limpa e eficiente.
     </div>
+    
+    <div id="status-denuncia" class="status-denuncia"></div>
 
     <div class="voltar">
       <a href="index.html" class="btn-voltar">← Voltar para a página inicial</a>
@@ -50,5 +52,30 @@
   <footer>
     <p>&copy; 2025 Arruma Aí. Todos os direitos reservados.</p>
   </footer>
+  <script>
+  document.querySelector('.denuncia-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const statusDiv = document.getElementById('status-denuncia');
+    statusDiv.innerHTML = `
+      <span class="spinner"></span>
+      <span style="color:#f59e0b;">Enviando sua denúncia...</span>
+    `;
+
+    setTimeout(() => {
+      statusDiv.classList.add('fade-out');
+
+      setTimeout(() => {
+        statusDiv.classList.remove('fade-out');
+        statusDiv.innerHTML = `<span class="success-message">✅ Denúncia enviada com sucesso!</span>`;
+      }, 500); 
+    }, 3000);
+
+    this.reset();
+  });
+</script>
+
+
+
 </body>
 </html>
