@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arruma Aí - Denúncias de Infraestrutura</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+  <div id="loader-bg">
+    <div class="loader"></div>
+  </div>
+  <a href="https://wa.me/5533987630763" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+    <img src="iconezap.png" alt="WhatsApp" />
+  </a>
+ <header class="header">
+  <div class="container-header">
+    <a href="index.html" class="logo">
+      <img src="arruma ai logo.png" alt="Logo Arruma Aí">
+    </a>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="denuncias.html">Denúncias</a></li>
+        <li><a href="nova-denuncia.html">Fazer Denúncia</a></li>
+        <li><a href="#suporte">Suporte</a></li>
+      </ul>
+    </nav>
+    <div class="login-options">
+      <a href="login.html" class="btn-login">Login Usuário</a>
+      <a href="loginÓrgãoPúblico.html" class="btn-login">Login Órgão Público</a>
+    </div>
+  </div>
+</header>
+
+<section id="denuncias" class="secao-denuncias">
+  <div class="container-denuncias">
+    <h2 class="reveal">Problemas Mais Denunciados</h2>
+    <p class="reveal">Veja os principais problemas que os cidadãos de Belo Horizonte têm reportado.</p>
+
+    <div class="cards-denuncias reveal">
+      <div class="card-denuncia">
+        <div class="icon"><img src="buraco rua.jpg" alt="Buraco"/></div>
+        <h3>Buracos nas Ruas</h3>
+        <p>Problemas frequentes em avenidas movimentadas, gerando risco de acidentes.</p>
+      </div>
+      <div class="card-denuncia">
+        <div class="icon"><img src="vazamento.webp" alt="Vazamento de Água"/></div>
+        <h3>Vazamentos de Água</h3>
+        <p>Desperdício e risco de alagamentos por falta de manutenção em tempo hábil.</p>
+      </div>
+      <div class="card-denuncia">
+        <div class="icon"><img src="poste.jpeg" alt="Poste com defeito"/></div>
+        <h3>Postes com Defeito</h3>
+        <p>Iluminação pública falha deixa áreas vulneráveis à violência urbana.</p>
+      </div>
+      <div class="card-denuncia">
+        <div class="icon"><img src="entulho.jpeg" alt="Outros problemas"/></div>
+        <h3>Outros Problemas</h3>
+        <p>Entulho, calçadas danificadas e outras falhas que afetam o bem-estar urbano.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tutorial" class="section bg-light">
+  <div style="max-width:600px;margin:0 auto;">
+    <h2 class="reveal" style="text-align:center;">Como usar o Arruma Aí</h2>
+    <ol class="reveal" style="margin: 0 auto; max-width: 400px; text-align: left;">
+      <li>Baixe o app na Play Store ou App Store.</li>
+      <li>Cadastre-se com seu e-mail.</li>
+      <li>Tire uma foto do problema e envie com a localização.</li>
+      <li>Acompanhe o status da sua denúncia em tempo real.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sobre" class="section bg-light">
+  <div style="max-width:600px;margin:0 auto;">
+    <h2 class="reveal" style="text-align:center;">Sobre o Arruma Aí</h2>
+    <p class="reveal" style="text-align:center;">Somos um projeto social voltado a conectar cidadãos e órgãos públicos para juntos transformarem a cidade. Transparência e praticidade são nossos pilares.</p>
+  </div>
+</section>
+
+<section id="suporte" class="section">
+  <div style="max-width:600px;margin:0 auto;">
+    <h2 class="reveal" style="text-align:center;">Suporte do App</h2>
+    <p class="reveal" style="text-align:center;">Está com dúvidas ou problemas ao usar o app? Nossa equipe está pronta para ajudar.<br><br></p>
+    <ul class="reveal" style="margin: 0 auto; max-width: 500px; text-align: left;">
+      <li>Email: suporte@arrumaai.com</li>
+      <li>WhatsApp: (11) 99999-9999</li>
+      <li>Horário: Seg a Sex - 08h às 18h</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Arruma Aí. Todos os direitos reservados.</p>
+  <div class="social">
+    <a href="#">Instagram</a> |
+    <a href="#">Facebook</a> 
+  </div>
+</footer>
+<script>
+const loaderBg = document.getElementById('loader-bg');
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => loaderBg.classList.add('hide'), 350);
+});
+
+document.querySelectorAll('a[href]').forEach(link => {
+  if (link.hostname === window.location.hostname) {
+    link.addEventListener('click', function(e) {
+      if (link.getAttribute('target') || link.href.includes('#')) return;
+      e.preventDefault();
+      loaderBg.classList.remove('hide');
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location = link.href;
+      }, 400);
+    });
+  }
+});
+function revealOnScroll() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('DOMContentLoaded', revealOnScroll);
+</script>
+</body>
+</html>

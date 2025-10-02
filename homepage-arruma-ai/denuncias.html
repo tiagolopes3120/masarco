@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualizar Denúncias - Arruma Aí</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <header class="header-secondary">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <img src="arruma ai logo.png" alt="Logo Arruma Aí">
+      </a>
+      <div class="login-options">
+        <a href="login.html" class="btn-login">Login Usuário</a>
+        <a href="loginÓrgãoPúblico.html" class="btn-login">Login Órgão Público</a>
+      </div>
+    </div>
+    <h1>Denúncias Urbanas em Belo Horizonte</h1>
+    <p>Veja os problemas reportados e ajude a melhorar nossa cidade</p>
+    <header class="header-main">
+      <a href="nova-denuncia.html" class="btn-denunciar">Fazer Denúncia</a>
+    </header>
+  </header>
+
+  <section class="filtros">
+    <div class="search-box">
+      <input type="text" placeholder="Buscar por bairro..." id="pesquisaBairro" oninput="filtrarDenuncias()" />
+      <button onclick="filtrarDenuncias()">🔍</button>
+    </div>
+
+    <div class="categorias">
+      <button onclick="selecionarCategoria(event, 'todos')" class="ativo">Todos</button>
+      <button onclick="selecionarCategoria(event, 'buraco')">Buracos</button>
+      <button onclick="selecionarCategoria(event, 'vazamento')">Vazamento de Água</button>
+      <button onclick="selecionarCategoria(event, 'poste')">Postes com Defeito</button>
+      <button onclick="selecionarCategoria(event, 'outros')">Outros</button>
+    </div>
+  </section>
+
+  <section class="denuncias-recentes" id="listaDenuncias">
+    <h2 class="reveal">Denúncias Recentes</h2>
+    <div class="grid-denuncias reveal">
+      <div class="denuncia-card" data-categoria="buraco" data-bairro="centro" data-rua="Av. Afonso Pena" data-referencia="Próximo ao ponto de ônibus">
+        <img src="buraco2.jpg" alt="Buraco na rua">
+        <div class="denuncia-info">
+          <h3>Buraco na Av. Afonso Pena</h3>
+          <p>Buraco perigoso próximo ao ponto de ônibus.</p>
+          <span class="tag categoria-buraco">Buraco</span>
+          <span class="tag bairro">Centro</span>
+        </div>
+        <button class="like-btn" onclick="curtirDenuncia(this)">
+          👍 <span class="like-count">0</span>
+        </button>
+      </div>
+
+      <div class="denuncia-card" data-categoria="vazamento" data-bairro="santo antonio" data-rua="Rua Leopoldina" data-referencia="Em frente ao número 200">
+        <img src="vazamento.webp" alt="Vazamento de água">
+        <div class="denuncia-info">
+          <h3>Vazamento na Rua Leopoldina</h3>
+          <p>Água jorrando há dias sem reparo pela Copasa.</p>
+          <span class="tag categoria-vazamento">Vazamento</span>
+          <span class="tag bairro">Santo Antônio</span>
+        </div>
+        <button class="like-btn" onclick="curtirDenuncia(this)">
+          👍 <span class="like-count">0</span>
+        </button>
+      </div>
+
+      <div class="denuncia-card" data-categoria="poste" data-bairro="pampulha" data-rua="Rua Lagoa da Pampulha" data-referencia="Próximo ao parque">
+        <img src="poste2.webp" alt="Poste apagado">
+        <div class="denuncia-info">
+          <h3>Poste Apagado na Pampulha</h3>
+          <p>Rua completamente escura. Risco de assaltos.</p>
+          <span class="tag categoria-poste">Poste</span>
+          <span class="tag bairro">Pampulha</span>
+        </div>
+        <button class="like-btn" onclick="curtirDenuncia(this)">
+          👍 <span class="like-count">0</span>
+        </button>
+      </div>
+
+      <div class="denuncia-card" data-categoria="outros" data-bairro="floresta" data-rua="Rua Jacuí" data-referencia="Próximo à padaria">
+        <img src="entulho.jpeg" alt="Entulho na calçada">
+        <div class="denuncia-info">
+          <h3>Entulho na Rua Jacuí</h3>
+          <p>Lixo acumulado atrapalhando o acesso de pedestres.</p>
+          <span class="tag categoria-outros">Outros</span>
+          <span class="tag bairro">Floresta</span>
+        </div>
+        <button class="like-btn" onclick="curtirDenuncia(this)">
+          👍 <span class="like-count">0</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <a href="index.html" class="btn-voltar">← Voltar para a Página Inicial</a>
+
+  <footer>
+    <p>&copy; 2025 Arruma Aí. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal de Detalhes da Denúncia -->
+  <div id="modal-denuncia" class="modal-denuncia-bg" style="display:none;">
+    <div class="modal-denuncia">
+      <button class="fechar-modal" onclick="fecharModalDenuncia()">×</button>
+      <div id="modal-conteudo-denuncia"></div>
+      <div class="comentarios-section">
+        <h4>Comentários</h4>
+        <div id="comentarios-lista"></div>
+        <form id="form-comentario" onsubmit="adicionarComentario(event)">
+          <input type="text" id="nome-comentario" placeholder="Seu nome" required>
+          <textarea id="texto-comentario" placeholder="Escreva um comentário..." required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+let categoriaSelecionada = 'todos';
+
+function removerAcentos(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function selecionarCategoria(event, categoria) {
+  categoriaSelecionada = categoria;
+  document.querySelectorAll(".categorias button").forEach(btn => btn.classList.remove("ativo"));
+  event.target.classList.add("ativo");
+  filtrarDenuncias();
+}
+
+function filtrarDenuncias() {
+  const termoPesquisa = removerAcentos(document.getElementById("pesquisaBairro").value.toLowerCase().trim());
+  const cards = document.querySelectorAll(".denuncia-card");
+  cards.forEach(card => {
+    const categoria = removerAcentos(card.getAttribute("data-categoria").toLowerCase().trim());
+    const bairro = removerAcentos(card.getAttribute("data-bairro").toLowerCase().trim());
+    const correspondeCategoria = (categoriaSelecionada === "todos" || categoria === removerAcentos(categoriaSelecionada.toLowerCase().trim()));
+    const correspondeBairro = bairro.includes(termoPesquisa);
+    if (correspondeCategoria && correspondeBairro) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+function curtirDenuncia(btn) {
+  const countSpan = btn.querySelector('.like-count');
+  let count = parseInt(countSpan.textContent, 10);
+  const card = btn.closest('.denuncia-card');
+  const id = Array.from(document.querySelectorAll('.denuncia-card')).indexOf(card);
+  const storageKey = 'like-denuncia-' + id;
+  if (!btn.classList.contains('liked')) {
+    count++;
+    btn.classList.add('liked');
+    localStorage.setItem(storageKey, '1');
+  } else {
+    count--;
+    btn.classList.remove('liked');
+    localStorage.removeItem(storageKey);
+  }
+  countSpan.textContent = count;
+}
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.denuncia-card').forEach((card, idx) => {
+    const btn = card.querySelector('.like-btn');
+    const countSpan = btn.querySelector('.like-count');
+    const storageKey = 'like-denuncia-' + idx;
+    if (localStorage.getItem(storageKey) === '1') {
+      btn.classList.add('liked');
+      countSpan.textContent = '1';
+    } else {
+      btn.classList.remove('liked');
+      countSpan.textContent = '0';
+    }
+  });
+
+  // Clique para abrir modal de detalhes
+  document.querySelectorAll('.denuncia-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('like-btn') || e.target.closest('.like-btn')) return;
+      abrirModalDenuncia(card);
+    });
+  });
+});
+
+function abrirModalDenuncia(card) {
+  const titulo = card.querySelector('h3').textContent;
+  const descricao = card.querySelector('p').textContent;
+  const categoria = card.getAttribute('data-categoria');
+  const bairro = card.getAttribute('data-bairro');
+  const imgSrc = card.querySelector('img').src;
+  const rua = card.getAttribute('data-rua') || 'Não informado';
+  const referencia = card.getAttribute('data-referencia') || 'Não informado';
+
+  document.getElementById('modal-conteudo-denuncia').innerHTML = `
+    <img src="${imgSrc}" alt="" style="width:100%;border-radius:8px;margin-bottom:10px;">
+    <h3>${titulo}</h3>
+    <p><strong>Descrição:</strong> ${descricao}</p>
+    <p><strong>Bairro:</strong> ${bairro.charAt(0).toUpperCase() + bairro.slice(1)}</p>
+    <p><strong>Rua:</strong> ${rua}</p>
+    <p><strong>Ponto de referência:</strong> ${referencia}</p>
+    <p><strong>Categoria:</strong> ${categoria.charAt(0).toUpperCase() + categoria.slice(1)}</p>
+  `;
+  carregarComentarios(titulo);
+  document.getElementById('modal-denuncia').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('form-comentario').setAttribute('data-titulo', titulo);
+}
+
+function fecharModalDenuncia() {
+  document.getElementById('modal-denuncia').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function carregarComentarios(titulo) {
+  const lista = document.getElementById('comentarios-lista');
+  lista.innerHTML = '';
+  const comentarios = JSON.parse(localStorage.getItem('comentarios-' + titulo) || '[]');
+  comentarios.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'comentario';
+    div.innerHTML = `
+      <span class="comentario-avatar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#b0b8c1" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
+          <circle cx="12" cy="8" r="4"/>
+          <ellipse cx="12" cy="17" rx="7" ry="5"/>
+        </svg>
+      </span>
+      <strong>${c.nome}:</strong> ${c.texto}
+    `;
+    lista.appendChild(div);
+  });
+}
+
+function adicionarComentario(e) {
+  e.preventDefault();
+  const form = document.getElementById('form-comentario');
+  const titulo = form.getAttribute('data-titulo');
+  const nome = document.getElementById('nome-comentario').value.trim();
+  const texto = document.getElementById('texto-comentario').value.trim();
+  if (!nome || !texto) return;
+  const comentarios = JSON.parse(localStorage.getItem('comentarios-' + titulo) || '[]');
+  comentarios.push({nome, texto});
+  localStorage.setItem('comentarios-' + titulo, JSON.stringify(comentarios));
+  document.getElementById('nome-comentario').value = '';
+  document.getElementById('texto-comentario').value = '';
+  carregarComentarios(titulo);
+}
+
+function revealOnScroll() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('DOMContentLoaded', revealOnScroll);
+</script>
+<script>
+document.querySelectorAll('a[href]').forEach(link => {
+  if (link.hostname === window.location.hostname) {
+    link.addEventListener('click', function(e) {
+      if (link.getAttribute('target') || link.href.includes('#')) return;
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location = link.href;
+      }, 400);
+    });
+  }
+});
+</script>
+</body>
+</html>
