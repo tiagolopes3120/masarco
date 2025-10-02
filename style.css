@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0062ff; /* Azul vibrante */
+    --success-color: #09b88d; /* Verde para seleção/sucesso */
+    --background-color: #f0f2f5; /* Fundo cinza claro */
+    --form-bg-color: #ffffff;
+    --text-color: #1d2b4f; /* Azul escuro/preto */
+    --text-light-color: #6a738c;
+    --border-color: #dde2ec;
+    --border-radius-lg: 16px;
+    --border-radius-md: 8px;
+    --shadow: 0 10px 30px rgba(0, 98, 255, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: var(--form-bg-color);
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 550px;
+    transform: scale(0.95);
+    opacity: 0;
+    animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.form-header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    font-size: 1.1em;
+    color: var(--text-light-color);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(0, 98, 255, 0.15);
+}
+
+/* --- Estilo das Perguntas e Opções --- */
+
+.question-container h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius-md);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.option:hover {
+    border-color: var(--primary-color);
+    background-color: #f0f6ff;
+}
+
+.option input[type="radio"] {
+    display: none; /* Esconde o botão de rádio padrão */
+}
+
+.option label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.05em;
+}
+
+/* --- O EFEITO DE SELEÇÃO ACONTECE AQUI --- */
+.option input[type="radio"]:checked + label {
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+.option input[type="radio"]:checked ~ .option-indicator::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.option.selected {
+    border-color: var(--success-color);
+    background-color: #f0fffb;
+}
+
+/* --- Barra de Progresso --- */
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #0062ff, #09b88d);
+    border-radius: 10px;
+    transition: width 0.4s ease-in-out;
+}
+
+
+/* --- Botões de Navegação --- */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 16px 32px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0053d6;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 98, 255, 0.2);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-light-color);
+}
+
+.btn-secondary:hover {
+    color: var(--text-color);
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+    .form-container {
+        padding: 25px;
+    }
+
+    .form-header h1 {
+        font-size: 2em;
+    }
+
+    .navigation-buttons {
+        flex-direction: column-reverse;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pergunta 1 de 6</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="progress-bar">
+             <div class="progress" style="width: 16.6%;"></div>
+        </div>
+
+        <div class="question-container">
+            <h2>1. Teve algum móvel danificado na época do acontecido?</h2>
+            
+            <div class="option">
+                <input type="radio" id="q1-sim" name="pergunta1" value="sim">
+                <label for="q1-sim">Sim</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="q1-nao" name="pergunta1" value="nao">
+                <label for="q1-nao">Não</label>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="index.html" class="btn btn-secondary">Voltar</a>
+            <a href="pergunta2.html" class="btn btn-primary">Avançar</a>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.option input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                // Remove a classe 'selected' de todas as opções
+                document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                // Adiciona a classe 'selected' ao pai do input selecionado
+                if(this.checked) {
+                    this.parentElement.classList.add('selected');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
